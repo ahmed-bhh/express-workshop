@@ -1,0 +1,50 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<h1>Create New Category</h1>
+<form method="POST" action="/categories" class="form-create-category">
+  <div class="form-group">
+    <label for="name">Category Name</label>
+    <input type="text" name="name" id="name" placeholder="Enter category name" required class="form-control" />
+  </div>
+  <button type="submit" class="btn btn-primary">Create</button>
+</form>
+{% endblock %}
+
+{% block styles %}
+<style>
+  .form-create-category {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  .btn {
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+</style>
+{% endblock %}

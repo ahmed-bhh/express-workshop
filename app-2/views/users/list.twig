@@ -1,0 +1,60 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<h1>Users</h1>
+<a href="/users/new" class="btn btn-primary">Create New User</a>
+<ul class="user-list">
+  {% for user in users %}
+    <li class="user-item">
+      <span class="user-name">{{ user.name }}</span> - 
+      <span class="user-email">{{ user.email }}</span>
+      <div class="user-actions">
+        <a href="/users/{{ user._id }}/edit" class="btn btn-secondary">Edit</a>
+        <a href="/users/{{ user._id }}/delete" class="btn btn-danger">Delete</a>
+      </div>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}
+
+{% block styles %}
+<style>
+  .user-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  .user-name {
+    font-weight: bold;
+  }
+  .user-email {
+    margin-left: 10px;
+  }
+  .user-actions .btn {
+    margin-left: 10px;
+  }
+  .btn {
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 3px;
+  }
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+  .btn-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+</style>
+{% endblock %}

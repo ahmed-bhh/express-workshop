@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    {% block body %}{% endblock %}
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title | default('My App') }}</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+    nav {
+      background-color: #007BFF;
+      padding: 10px 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: white;
+      margin-right: 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    footer {
+      background-color: #007BFF;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div>
+      <a href="/">Home</a>
+      <a href="/categories">Categories</a>
+      <a href="/products">Products</a>
+      <a href="/users">Users</a>
+    </div>
+  </nav>
+  <div class="container">
+    {% block content %}
+    {% endblock %}
+  </div>
+  <footer>
+    &copy; {{ "now"|date("Y") }} My App. All rights reserved.
+  </footer>
+</body>
 </html>

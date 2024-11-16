@@ -1,0 +1,65 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<h1>Products</h1>
+<a href="/products/new" class="btn btn-primary">Create New Product</a>
+<ul class="product-list">
+  {% for product in products %}
+    <li class="product-item">
+      <span class="product-name">{{ product.name }}</span> - 
+      <span class="product-price">${{ product.price }}</span>
+      <span class="product-category">(Category: {{ product.category ? product.category.name : 'No Category' }})</span>
+      <div class="product-actions">
+        <a href="/products/{{ product._id }}/edit" class="btn btn-secondary">Edit</a>
+        <a href="/products/{{ product._id }}/delete" class="btn btn-danger">Delete</a>
+      </div>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}
+
+{% block styles %}
+<style>
+  .product-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  .product-name {
+    font-weight: bold;
+  }
+  .product-price {
+    margin-left: 10px;
+  }
+  .product-category {
+    margin-left: 10px;
+    font-style: italic;
+  }
+  .product-actions .btn {
+    margin-left: 10px;
+  }
+  .btn {
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 3px;
+  }
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+  .btn-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+</style>
+{% endblock %}

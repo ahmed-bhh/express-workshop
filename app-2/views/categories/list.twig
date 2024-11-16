@@ -1,0 +1,56 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<h1>Categories</h1>
+<a href="/categories/new" class="btn btn-primary">Create New Category</a>
+<ul class="category-list">
+  {% for category in categories %}
+    <li class="category-item">
+      <span class="category-name">{{ category.name }}</span>
+      <div class="category-actions">
+        <a href="/categories/{{ category._id }}/edit" class="btn btn-secondary">Edit</a>
+        <a href="/categories/{{ category._id }}/delete" class="btn btn-danger">Delete</a>
+      </div>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}
+
+{% block styles %}
+<style>
+  .category-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  .category-name {
+    font-weight: bold;
+  }
+  .category-actions .btn {
+    margin-left: 10px;
+  }
+  .btn {
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 3px;
+  }
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+  .btn-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+</style>
+{% endblock %}

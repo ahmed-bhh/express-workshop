@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
+const Category = require('../models/Category');
 
 /**
  * @swagger
- * /users:
+ * /categories:
  *   get:
- *     summary: Retrieve a list of users
+ *     summary: Retrieve a list of categories
  *     responses:
  *       200:
- *         description: A list of users
+ *         description: A list of categories
  *         content:
  *           application/json:
  *             schema:
@@ -21,32 +21,30 @@ const User = require('../models/User');
  *                     type: string
  *                   name:
  *                     type: string
- *                   email:
- *                     type: string
  */
 router.get('/', async (req, res) => {
-  const users = await User.find();
-  res.render('users/list', { users });
+  const categories = await Category.find();
+  res.render('categories/list', { categories });
 });
 
 /**
  * @swagger
- * /users/new:
+ * /categories/new:
  *   get:
- *     summary: Render form to create a new user
+ *     summary: Render form to create a new category
  *     responses:
  *       200:
- *         description: Form to create a new user
+ *         description: Form to create a new category
  */
 router.get('/new', (req, res) => {
-  res.render('users/new');
+  res.render('categories/new');
 });
 
 /**
  * @swagger
- * /users:
+ * /categories:
  *   post:
- *     summary: Create a new user
+ *     summary: Create a new category
  *     requestBody:
  *       required: true
  *       content:
@@ -56,25 +54,21 @@ router.get('/new', (req, res) => {
  *             properties:
  *               name:
  *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
  *     responses:
  *       302:
- *         description: Redirect to the list of users
+ *         description: Redirect to the list of categories
  */
 router.post('/', async (req, res) => {
-  const { name, email, password } = req.body;
-  await User.create({ name, email, password });
-  res.redirect('/users');
+  const { name } = req.body;
+  await Category.create({ name });
+  res.redirect('/categories');
 });
 
 /**
  * @swagger
- * /users/{id}/edit:
+ * /categories/{id}/edit:
  *   get:
- *     summary: Render form to edit a user
+ *     summary: Render form to edit a category
  *     parameters:
  *       - in: path
  *         name: id
@@ -83,18 +77,18 @@ router.post('/', async (req, res) => {
  *           type: string
  *     responses:
  *       200:
- *         description: Form to edit a user
+ *         description: Form to edit a category
  */
 router.get('/:id/edit', async (req, res) => {
-  const user = await User.findById(req.params.id);
-  res.render('users/edit', { user });
+  const category = await Category.findById(req.params.id);
+  res.render('categories/edit', { category });
 });
 
 /**
  * @swagger
- * /users/{id}:
+ * /categories/{id}:
  *   post:
- *     summary: Update a user
+ *     summary: Update a category
  *     parameters:
  *       - in: path
  *         name: id
@@ -110,25 +104,21 @@ router.get('/:id/edit', async (req, res) => {
  *             properties:
  *               name:
  *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
  *     responses:
  *       302:
- *         description: Redirect to the list of users
+ *         description: Redirect to the list of categories
  */
 router.post('/:id', async (req, res) => {
-  const { name, email, password } = req.body;
-  await User.findByIdAndUpdate(req.params.id, { name, email, password });
-  res.redirect('/users');
+  const { name } = req.body;
+  await Category.findByIdAndUpdate(req.params.id, { name });
+  res.redirect('/categories');
 });
 
 /**
  * @swagger
- * /users/{id}/delete:
+ * /categories/{id}/delete:
  *   get:
- *     summary: Delete a user
+ *     summary: Delete a category
  *     parameters:
  *       - in: path
  *         name: id
@@ -137,11 +127,11 @@ router.post('/:id', async (req, res) => {
  *           type: string
  *     responses:
  *       302:
- *         description: Redirect to the list of users
+ *         description: Redirect to the list of categories
  */
 router.get('/:id/delete', async (req, res) => {
-  await User.findByIdAndDelete(req.params.id);
-  res.redirect('/users');
+  await Category.findByIdAndDelete(req.params.id);
+  res.redirect('/categories');
 });
 
 module.exports = router;
