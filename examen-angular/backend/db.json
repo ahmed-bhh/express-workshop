@@ -1,0 +1,22 @@
+{
+  "stages": [
+    {
+      "id": "e4e1",
+      "ref": 102,
+      "titre": "Dev",
+      "description": "Th best",
+      "entreprise": "Esprit",
+      "disponible": true,
+      "nbrInteresse": 4
+    },
+    {
+      "id": "f38e",
+      "ref": 10,
+      "titre": "jhhhh",
+      "description": "zzz",
+      "entreprise": "AAA",
+      "disponible": true,
+      "nbrInteresse": 5
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+<form [formGroup]="stage">
+  Ref : <input formControlName="ref" type="number" />
+  <div *ngIf="stage.get('ref')!.invalid && stage.get('ref')!.touched">
+    Ref required !
+  </div>
+  Titre : <input formControlName="titre" />
+  <div *ngIf="stage.get('titre')!.invalid && stage.get('titre')!.touched">
+    Titre invalid !
+  </div>
+  Description : <input formControlName="description" />
+  <div
+    *ngIf="
+      stage.get('description')!.invalid && stage.get('description')!.touched
+    "
+  >
+    Description invalid !
+  </div>
+  Entreprise : <input formControlName="entreprise" />
+  <div
+    *ngIf="stage.get('entreprise')!.invalid && stage.get('entreprise')!.touched"
+  >
+    Entreprise invalid !
+  </div>
+  Disponible : <input formControlName="disponible" type="checkbox" />
+  <div
+    *ngIf="stage.get('disponible')!.invalid && stage.get('disponible')!.touched"
+  >
+    Disponible invalid !
+  </div>
+  Nbr Interesse : <input formControlName="nbrInteresse" type="number" />
+  <div
+    *ngIf="
+      stage.get('nbrInteresse')!.invalid && stage.get('nbrInteresse')!.touched
+    "
+  >
+    Nbr Interesse invalid !
+  </div>
+  <button type="submit" [disabled]="stage.invalid" (click)="save()">
+    {{ getButtonTitle() }}
+  </button>
+</form>

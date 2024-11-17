@@ -1,0 +1,42 @@
+<div>
+  Search Stage par description
+  <input class="form-control" (input)="onSearchTextChange($event)" />
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Ref</th>
+        <th>Titre</th>
+        <th>Description</th>
+        <th>Entreprise</th>
+        <th>Disponible</th>
+        <th>Nbre Interesse</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stage of stagesFiltred">
+        <td>{{ stage.id }}</td>
+        <td>{{ stage.ref }}</td>
+        <td>{{ stage.titre }}</td>
+        <td>{{ stage.description }}</td>
+        <td>{{ stage.entreprise }}</td>
+        <td>{{ stage.disponible }}</td>
+        <td>
+          {{ stage.nbrInteresse }}
+          <button
+            (click)="incrementNbreInteresse(stage)"
+            [disabled]="!stage.disponible"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2"
+          >
+            +
+          </button>
+        </td>
+        <td>
+          <!-- <button (click)="editStage(stage.id)">Edit</button> -->
+          <button (click)="deleteStage(stage.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
