@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const yup = require('yup');
 
 /**
  * @swagger
@@ -35,4 +36,20 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
-module.exports = mongoose.model('User', userSchema);
+// Validation schema using yup
+const UserValidationSchema = yup.object().shape({
+  body: yup.object({
+    name: yup.string().required('User name is required'),
+    email: yup.string().email('Invalid email').required('User email is required'),
+    password: yup.string().required('User password is required'),
+  }),
+  params: yup.object({
+    id: yup.string().required('User ID is required'),
+  }),
+  query: yup.object(),
+});
+
+module.exports = {
+  User: mongoose.model('User', userSchema),
+  UserValidationSchema,
+};

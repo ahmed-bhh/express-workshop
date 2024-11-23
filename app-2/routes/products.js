@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Product = require('../models/Product');
-const Category = require('../models/Category');
+const { Product } = require('../models/Product');
+const { Category, ProductValidationSchema } = require('../models/Category');
+const validate = require('../middlewares/validate');
 
 /**
  * @swagger
@@ -68,7 +69,7 @@ router.get('/new', async (req, res) => {
  *       302:
  *         description: Redirect to the list of products
  */
-router.post('/', async (req, res) => {
+router.post('/', validate(ProductValidationSchema), async (req, res) => {
   const { name, price, category } = req.body;
   await Product.create({ name, price, category });
   res.redirect('/products');
@@ -89,7 +90,7 @@ router.post('/', async (req, res) => {
  *       200:
  *         description: Form to edit a product
  */
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', validate(ProductValidationSchema), async (req, res) => {
   const product = await Product.findById(req.params.id);
   const categories = await Category.find();
   res.render('products/edit', { product, categories });
@@ -123,7 +124,7 @@ router.get('/:id/edit', async (req, res) => {
  *       302:
  *         description: Redirect to the list of products
  */
-router.post('/:id', async (req, res) => {
+router.post('/:id', validate(ProductValidationSchema), async (req, res) => {
   const { name, price, category } = req.body;
   await Product.findByIdAndUpdate(req.params.id, { name, price, category });
   res.redirect('/products');
@@ -144,7 +145,7 @@ router.post('/:id', async (req, res) => {
  *       302:
  *         description: Redirect to the list of products
  */
-router.get('/:id/delete', async (req, res) => {
+router.get('/:id/delete', validate(ProductValidationSchema), async (req, res) => {
   await Product.findByIdAndDelete(req.params.id);
   res.redirect('/products');
 });

@@ -18,6 +18,7 @@
     "nodemon": "^3.1.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "twig": "~0.10.3"
+    "twig": "~0.10.3",
+    "yup": "^1.4.0"
   }
 }

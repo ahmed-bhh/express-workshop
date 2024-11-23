@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const yup = require('yup');
 
 /**
  * @swagger
@@ -35,4 +36,20 @@ const productSchema = new mongoose.Schema({
   category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
 });
 
-module.exports = mongoose.model('Product', productSchema);
+// Validation schema using yup
+const ProductValidationSchema = yup.object().shape({
+  body: yup.object({
+    name: yup.string().required('Product name is required').min(3, 'Product name is too short').max(10, 'Product name is too long'),
+    price: yup.number().required('Product price is required'),
+    category: yup.string().required('Product category is required'),
+  }),
+  params: yup.object({
+    id: yup.string().required('Product ID is required'),
+  }),
+  query: yup.object(),
+});
+
+module.exports = {
+  Product: mongoose.model('Product', productSchema),
+  ProductValidationSchema,
+};

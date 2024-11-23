@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
+const { User,UserValidationSchema } = require('../models/User');
+const validate = require('../middlewares/validate');
 
 /**
  * @swagger
@@ -64,7 +65,7 @@ router.get('/new', (req, res) => {
  *       302:
  *         description: Redirect to the list of users
  */
-router.post('/', async (req, res) => {
+router.post('/', validate(UserValidationSchema), async (req, res) => {
   const { name, email, password } = req.body;
   await User.create({ name, email, password });
   res.redirect('/users');
@@ -85,7 +86,7 @@ router.post('/', async (req, res) => {
  *       200:
  *         description: Form to edit a user
  */
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', validate(UserValidationSchema), async (req, res) => {
   const user = await User.findById(req.params.id);
   res.render('users/edit', { user });
 });
@@ -118,7 +119,7 @@ router.get('/:id/edit', async (req, res) => {
  *       302:
  *         description: Redirect to the list of users
  */
-router.post('/:id', async (req, res) => {
+router.post('/:id', validate(UserValidationSchema), async (req, res) => {
   const { name, email, password } = req.body;
   await User.findByIdAndUpdate(req.params.id, { name, email, password });
   res.redirect('/users');
@@ -139,7 +140,7 @@ router.post('/:id', async (req, res) => {
  *       302:
  *         description: Redirect to the list of users
  */
-router.get('/:id/delete', async (req, res) => {
+router.get('/:id/delete', validate(UserValidationSchema), async (req, res) => {
   await User.findByIdAndDelete(req.params.id);
   res.redirect('/users');
 });
