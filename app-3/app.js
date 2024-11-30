@@ -8,6 +8,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
+let users = [];
+
 // Set up view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'twig');
@@ -15,7 +17,6 @@ app.set('view engine', 'twig');
 // Middleware setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/chat', routerChat);
@@ -23,9 +24,22 @@ app.use('/chat', routerChat);
 // Socket.IO configuration
 io.on('connection', (socket) => {
   console.log('a user connected');
+  
+  // Add user to the list
+  socket.on('user connected', (username) => {
+    users.push({ id: socket.id, username });
+    io.emit('user connected', username);
+  });
+
   socket.on('disconnect', () => {
+    const user = users.find(u => u.id === socket.id);
+    if (user) {
+      users = users.filter(u => u.id !== socket.id);
+      io.emit('user disconnected', user.username);
+    }
     console.log('user disconnected');
   });
+
   socket.on('chat message', (msg) => {
     io.emit('chat message', msg);
   });
