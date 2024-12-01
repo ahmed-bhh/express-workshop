@@ -35,6 +35,8 @@
         <td>
           <!-- <button (click)="editStage(stage.id)">Edit</button> -->
           <button (click)="deleteStage(stage.id)">Delete</button>
+          <a [routerLink]="['/showstage',stage.id]" class="btn btn-primary">details</a>
+
         </td>
       </tr>
     </tbody>

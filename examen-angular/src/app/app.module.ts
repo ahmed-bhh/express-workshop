@@ -8,6 +8,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { StagesComponent } from './stages/stages.component';
 import { AddStageComponent } from './add-stage/add-stage.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { DetailstageComponent } from './detailstage/detailstage.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     NavBarComponent,
     StagesComponent,
     AddStageComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    DetailstageComponent
   ],
   imports: [
     BrowserModule,
